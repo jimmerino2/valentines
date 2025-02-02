@@ -1,4 +1,47 @@
 <!DOCTYPE html>
+<script>
+  function envelopeOpen() {
+    const envelope = document.getElementById("env_container");
+    const img = document.getElementById("env");
+    const top = document.getElementById("env-top");
+    const message = document.getElementById("env-message");
+
+    // Change the envelope image
+    envelope.style.transform = "translateY(180px)";
+    img.src = "public/img/envelope-open-bottom.png";
+    top.style.display = "block";
+    message.style.display = "block";
+
+    setTimeout(displayMessage, 500);
+  }
+
+  function displayMessage() {
+    const hiddenMessage = document.getElementById("hidden-message");
+    const message = document.getElementById("env-message");
+    message.style.transform = "translateY(-200px)";
+    hiddenMessage.innerHTML = "Will you be my Valentine?";
+    hiddenMessage.style.padding = "20px";
+    hiddenMessage.style.backgroundColor = "white";
+
+    setTimeout(displayButton, 500);
+  }
+
+  function displayButton() {
+    const buttons = document.getElementById("buttons");
+    buttons.style.display = "flex";
+  }
+
+  function btnYes() {
+    const popup = document.getElementById("popup");
+    popup.style.display = "flex";
+  }
+
+  function btnNo() {
+    const btnNo = document.getElementById("btnNo");
+    btnNo.style.visibility = "hidden";
+  }
+</script>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +49,135 @@
     <title>Document</title>
   </head>
   <body>
-    Hello World
+    <div class="container" style="height: 600px; position: relative">
+      <h1 style="color: rgb(126, 44, 75)" id="hidden-message">
+        Click to see the message
+      </h1>
+      <div class="envelope" id="env_container" onclick="envelopeOpen()">
+        <!-- Envelope Base -->
+        <img
+          src="public/gif/envelope.gif"
+          id="env"
+          style="width: 100%; position: absolute; top: 0px; z-index: 20"
+        />
+
+        <!-- Message -->
+        <div
+          class="message"
+          id="env-message"
+          style="
+            width: 80%;
+            position: relative;
+            display: none;
+            z-index: 10;
+            height: 400px;
+          "
+        >
+          <img
+            src="public/img/flushed.png"
+            style="position: absolute; left: 50%; transform: translateX(-50%)"
+          />
+          <img
+            src="public/img/fingers.png"
+            style="
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 100%;
+              bottom: -10%;
+            "
+          />
+        </div>
+
+        <!-- Envelope Top -->
+        <img
+          src="public/img/envelope-open-top.png"
+          id="env-top"
+          style="
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            display: none;
+            z-index: 0;
+          "
+        />
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div
+      style="display: flex; justify-content: space-around; display: none"
+      id="buttons"
+    >
+      <button style="width: 300px; background-color: pink" onclick="btnYes()">
+        <p style="font-size: 2em">Yes</p>
+      </button>
+      <button
+        style="width: 300px; background-color: pink"
+        onclick="btnNo()"
+        id="btnNo"
+      >
+        <p style="font-size: 2em">No</p>
+      </button>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+      <img src="public/gif/gatto.gif" style="width: 100%" />
+      <p style="font-size: 3rem">YAYYYYY</p>
+    </div>
   </body>
 </html>
+
+<style>
+  .popup {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 600px;
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: beige;
+    z-index: 30;
+  }
+
+  body {
+    background-color: rgb(245, 218, 223);
+    font-family: "Lucida Sans", "Lucida Sans Regular";
+  }
+
+  .message {
+    transition: transform 3s ease;
+    position: relative;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .envelope {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 1s ease;
+    position: relative;
+  }
+
+  .envelope:hover {
+    cursor: pointer;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+</style>
